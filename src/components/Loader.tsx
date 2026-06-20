@@ -33,7 +33,10 @@ export default function Loader() {
       {!done && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.6, ease: [0.7, 0, 0.3, 1] } }}
+          exit={{
+            opacity: 0,
+            transition: { duration: 0.6, ease: [0.7, 0, 0.3, 1] },
+          }}
           className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center overflow-hidden"
         >
           <div className="absolute inset-0 noise-overlay pointer-events-none opacity-60" />
@@ -58,7 +61,7 @@ export default function Loader() {
               className="absolute inset-[-50%]"
               style={{
                 background:
-                  "conic-gradient(from 0deg, transparent 0deg, hsl(var(--accent)) 60deg, #ec4899 120deg, transparent 180deg, transparent 360deg)",
+                  "conic-gradient(from 0deg, transparent 0deg, hsl(var(--accent)) 60deg, hsl(var(--primary)) 120deg, transparent 180deg, transparent 360deg)",
               }}
               animate={{ rotate: 360 }}
               transition={{ duration: 2.4, ease: "linear", repeat: Infinity }}

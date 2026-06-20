@@ -4,7 +4,7 @@ import { Github, Linkedin, Instagram, Send, Twitter, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-black px-4 md:px-8 pt-10 pb-8 overflow-hidden">
+    <footer className="bg-background px-4 md:px-8 pt-10 pb-8 overflow-hidden">
       {/* Top Card */}
       <div
         className="
@@ -19,8 +19,8 @@ export default function Footer() {
           max-w-[1800px]
           mx-auto
           rounded-[40px]
-          border border-white/[0.04]
-          bg-[#050505]
+          border border-border/40
+          bg-card
           px-8
           md:px-14
           py-12
@@ -30,7 +30,7 @@ export default function Footer() {
             {/* LEFT */}
             <div className="relative">
               {/* Glow */}
-              <div className="absolute -top-10 -left-10 h-40 w-40 rounded-full bg-orange-500/10 blur-[100px]" />
+              <div className="absolute -top-10 -left-10 h-40 w-40 rounded-full bg-accent/10 blur-[100px]" />
 
               <h2
                 className="
@@ -39,7 +39,7 @@ export default function Footer() {
                 md:text-6xl
                 font-black
                 tracking-[-0.08em]
-                text-white
+                text-foreground
               "
               >
                 AVERSE
@@ -49,7 +49,7 @@ export default function Footer() {
                 className="
                 mt-8
                 max-w-[420px]
-                text-zinc-400
+                text-muted-foreground
                 text-lg
                 leading-[1.8]
               "
@@ -67,15 +67,15 @@ export default function Footer() {
                 items-center
                 gap-3
                 rounded-full
-                border border-white/10
-                bg-white/[0.03]
+                border border-border
+                bg-background/60
                 px-4
                 py-2
               "
               >
                 <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
 
-                <span className="text-sm text-zinc-300">
+                <span className="text-sm text-foreground/80">
                   Available for opportunities
                 </span>
               </div>
@@ -83,9 +83,9 @@ export default function Footer() {
 
             {/* GENERAL */}
             <div>
-              <h3 className="text-zinc-500 text-lg mb-8">General</h3>
+              <h3 className="text-muted-foreground text-lg mb-8">General</h3>
 
-              <div className="flex flex-col gap-5 text-white text-xl font-medium">
+              <div className="flex flex-col gap-5 text-foreground text-xl font-medium">
                 <a href="/">Home</a>
                 <a href="/blogs">Blogs</a>
                 <a href="/guestbook">Guestbook</a>
@@ -95,9 +95,9 @@ export default function Footer() {
 
             {/* ABOUT */}
             <div>
-              <h3 className="text-zinc-500 text-lg mb-8">About</h3>
+              <h3 className="text-muted-foreground text-lg mb-8">About</h3>
 
-              <div className="flex flex-col gap-5 text-white text-xl font-medium">
+              <div className="flex flex-col gap-5 text-foreground text-xl font-medium">
                 <a href="/about">About Me</a>
                 <a href="/projects">Projects</a>
                 <a href="/contact">Contact</a>
@@ -106,9 +106,9 @@ export default function Footer() {
 
             {/* PROJECTS */}
             <div>
-              <h3 className="text-zinc-500 text-lg mb-8">Projects</h3>
+              <h3 className="text-muted-foreground text-lg mb-8">Projects</h3>
 
-              <div className="flex flex-col gap-5 text-white text-xl font-medium">
+              <div className="flex flex-col gap-5 text-foreground text-xl font-medium">
                 <a href="#">FABRO</a>
                 <a href="#">JMRC Portal</a>
                 <a href="#">Palate</a>
@@ -119,30 +119,30 @@ export default function Footer() {
 
             {/* LEGAL */}
             <div>
-              <h3 className="text-zinc-500 text-lg mb-8">Legal</h3>
+              <h3 className="text-muted-foreground text-lg mb-8">Legal</h3>
 
-              <div className="flex flex-col gap-5 text-white text-xl font-medium">
+              <div className="flex flex-col gap-5 text-foreground text-xl font-medium">
                 <a href="/privacy-policy">Privacy Policy</a>
                 <a href="/terms-and-conditions">Terms & Conditions</a>
               </div>
 
-              <div className="mt-10 border-t border-white/10 pt-6">
+              <div className="mt-10 border-t border-border pt-6">
                 <div
                   className="
                   inline-flex
                   items-center
                   rounded-md
-                  bg-[#1f1f1f]
+                  bg-muted
                   px-4
                   py-2
                   text-sm
-                  text-zinc-300
+                  text-foreground/80
                 "
                 >
                   DMCA PROTECTED
                 </div>
 
-                <p className="mt-5 text-sm leading-7 text-zinc-500">
+                <p className="mt-5 text-sm leading-7 text-muted-foreground">
                   This site is protected. Read our Privacy Policy & Terms.
                 </p>
               </div>
@@ -152,11 +152,11 @@ export default function Footer() {
       </div>
 
       {/* Bottom */}
-      <div className="max-w-[1800px] mx-auto mt-10 border-t border-white/10 pt-8">
+      <div className="max-w-[1800px] mx-auto mt-10 border-t border-border pt-8">
         <div className="flex items-center justify-between flex-wrap gap-6">
           <p
             className="
-            text-zinc-500
+            text-muted-foreground
             text-sm
             uppercase
             tracking-wide
@@ -165,25 +165,47 @@ export default function Footer() {
             © 2026 AVERSE. ALL RIGHTS RESERVED.
           </p>
 
-          <div className="flex items-center gap-7 text-zinc-500">
-            <a className="hover:text-white transition">
+          <div className="flex items-center gap-7 text-muted-foreground">
+            <a
+              className="hover:text-foreground transition"
+              aria-label="GitHub"
+              title="GitHub"
+            >
               <Github size={28} />
             </a>
-            <a className="hover:text-white transition">
+            <a
+              className="hover:text-foreground transition"
+              aria-label="LinkedIn"
+              title="LinkedIn"
+            >
               <Linkedin size={28} />
             </a>
-            <a className="hover:text-white transition">
+            <a
+              className="hover:text-foreground transition"
+              aria-label="Twitter"
+              title="Twitter"
+            >
               <Twitter size={28} />
             </a>
-            <a className="hover:text-white transition">
+            <a
+              className="hover:text-foreground transition"
+              aria-label="Send"
+              title="Send"
+            >
               <Send size={28} />
             </a>
-            <a className="hover:text-white transition">
+            <a
+              className="hover:text-foreground transition"
+              aria-label="Instagram"
+              title="Instagram"
+            >
               <Instagram size={28} />
             </a>
             <a
               href="mailto:anjalikamal3105@gmail.com"
-              className="hover:text-white transition"
+              className="hover:text-foreground transition"
+              aria-label="Email"
+              title="Email"
             >
               <Mail size={28} />
             </a>

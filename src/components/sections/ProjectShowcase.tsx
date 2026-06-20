@@ -214,9 +214,9 @@ function ProjectCursor({
         </defs>
         <text
           fontSize="7.5"
-          fill="white"
+          fill="currentColor"
+          className="text-foreground font-sans"
           letterSpacing="2.8"
-          fontFamily="'Inter', system-ui, sans-serif"
           fontWeight="700"
         >
           <textPath href="#cp">{text}</textPath>
@@ -231,11 +231,11 @@ function ProjectCursor({
           width: 46,
           height: 46,
           transform: "translate(-50%, -50%)",
-          background: "rgba(255,255,255,0.12)",
+          background: "hsl(var(--foreground) / 0.12)",
           backdropFilter: "blur(8px)",
           WebkitBackdropFilter: "blur(8px)",
           borderRadius: "50%",
-          border: "1px solid rgba(255,255,255,0.25)",
+          border: "1px solid hsl(var(--foreground) / 0.25)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -246,7 +246,8 @@ function ProjectCursor({
           height="18"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="white"
+          stroke="currentColor"
+          className="text-foreground"
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -287,10 +288,13 @@ function Timeline({
       <div
         style={{ textAlign: "center", marginBottom: "1rem", lineHeight: 1.1 }}
       >
-        <div style={{ fontSize: "1rem", fontWeight: 800, color: "#fff" }}>
+        <div
+          className="text-foreground"
+          style={{ fontSize: "1rem", fontWeight: 800 }}
+        >
           {String(activeIndex + 1).padStart(2, "0")}
         </div>
-        <div style={{ fontSize: "0.62rem", color: "#3a3a3a" }}>
+        <div className="text-muted-foreground" style={{ fontSize: "0.62rem" }}>
           {String(TOTAL).padStart(2, "0")}
         </div>
       </div>
@@ -307,7 +311,7 @@ function Timeline({
             transform: "translateX(-50%)",
             width: 4,
             height: "100%",
-            background: "#1c1c1c",
+            background: "hsl(var(--muted))",
             borderRadius: 4,
           }}
         />
@@ -322,10 +326,10 @@ function Timeline({
             width: 4,
             height: dotY,
             background:
-              "linear-gradient(180deg, #f472b6 0%, #ec4899 60%, #db2777 100%)",
+              "linear-gradient(180deg, hsl(var(--accent)) 0%, hsl(var(--primary)) 60%, hsl(var(--secondary)) 100%)",
             borderRadius: 4,
             transition: "height 0.5s cubic-bezier(0.4,0,0.2,1)",
-            boxShadow: "0 0 8px #ec489966",
+            boxShadow: "0 0 8px hsl(var(--accent) / 0.4)",
           }}
         />
 
@@ -340,11 +344,12 @@ function Timeline({
             height: THUMB_H,
             borderRadius: 12,
             overflow: "hidden",
-            border: "2px solid #ec4899",
-            boxShadow: "0 0 14px #ec489955, 0 8px 24px rgba(0,0,0,0.7)",
+            border: "2px solid hsl(var(--accent))",
+            boxShadow:
+              "0 0 14px hsl(var(--accent) / 0.35), 0 8px 24px hsl(var(--foreground) / 0.28)",
             transition: "top 0.5s cubic-bezier(0.4,0,0.2,1)",
             zIndex: 2,
-            background: "#111",
+            background: "hsl(var(--card))",
           }}
         >
           <img
@@ -369,9 +374,9 @@ function Timeline({
             width: 13,
             height: 13,
             borderRadius: "50%",
-            background: "#0a0a0a",
-            border: "2.5px solid #ec4899",
-            boxShadow: "0 0 10px #ec489988",
+            background: "hsl(var(--background))",
+            border: "2.5px solid hsl(var(--accent))",
+            boxShadow: "0 0 10px hsl(var(--accent) / 0.53)",
             transition: "top 0.5s cubic-bezier(0.4,0,0.2,1)",
             zIndex: 3,
           }}
@@ -386,7 +391,7 @@ function Timeline({
             transform: "translateX(-50%)",
             width: 4,
             height: TRACK_H - dotY,
-            background: "#1c1c1c",
+            background: "hsl(var(--muted))",
             borderRadius: 4,
             zIndex: 1,
           }}
@@ -458,9 +463,8 @@ function LeftPanel({
           fontWeight: 900,
           letterSpacing: "-0.04em",
           lineHeight: 0.95,
-          color: "#fff",
+          color: "hsl(var(--foreground))",
           margin: "0 0 1rem",
-          fontFamily: "'Inter', system-ui, sans-serif",
         }}
       >
         {project.title}
@@ -470,11 +474,10 @@ function LeftPanel({
       <p
         style={{
           fontSize: "0.85rem",
-          color: "#888",
+          color: "hsl(var(--muted-foreground))",
           lineHeight: 1.8,
           margin: "0 0 1.2rem",
           maxWidth: 420,
-          fontFamily: "'Inter', system-ui, sans-serif",
         }}
       >
         {project.description}
@@ -499,7 +502,7 @@ function LeftPanel({
               alignItems: "flex-start",
               gap: "0.6rem",
               fontSize: "0.82rem",
-              color: "#c0c0c0",
+              color: "hsl(var(--secondary-foreground))",
               fontWeight: 500,
               lineHeight: 1.5,
             }}
@@ -534,12 +537,11 @@ function LeftPanel({
               alignItems: "center",
               gap: "0.35rem",
               padding: "0.3rem 0.85rem",
-              border: "1px solid #2a2a2a",
+              border: "1px solid hsl(var(--border))",
               borderRadius: 999,
               fontSize: "0.7rem",
-              color: "#aaa",
-              background: "#0f0f0f",
-              fontFamily: "'Inter', system-ui, sans-serif",
+              color: "hsl(var(--muted-foreground))",
+              background: "hsl(var(--card))",
             }}
           >
             {t.icon && (
@@ -640,9 +642,9 @@ function RightImages({
             flex: "0 0 48%",
             borderRadius: 18,
             overflow: "hidden",
-            background: "#111",
-            border: "1px solid #1e1e1e",
-            boxShadow: "0 16px 48px rgba(0,0,0,0.6)",
+            background: "hsl(var(--card))",
+            border: "1px solid hsl(var(--border))",
+            boxShadow: "0 16px 48px hsl(var(--foreground) / 0.24)",
           }}
         >
           <img
@@ -659,7 +661,7 @@ function RightImages({
             borderRadius: 18,
             overflow: "hidden",
             background: project.accent,
-            border: "1px solid #1e1e1e",
+            border: "1px solid hsl(var(--border))",
             boxShadow: `0 12px 40px ${project.accent}44`,
           }}
         >
@@ -688,7 +690,7 @@ function RightImages({
           borderRadius: 18,
           overflow: "hidden",
           background: `${project.accent}22`,
-          border: "1px solid #1e1e1e",
+          border: "1px solid hsl(var(--border))",
           boxShadow: `0 20px 60px ${project.accent}33`,
         }}
       >
@@ -806,7 +808,7 @@ export default function ProjectShowcase() {
           height: "100vh",
           maxWidth: "100vw",
           overflow: "hidden",
-          background: "#0a0a0a",
+          background: "hsl(var(--background))",
           display: "flex",
           flexDirection: "column",
           cursor: "none",
@@ -825,10 +827,9 @@ export default function ProjectShowcase() {
             style={{
               fontSize: "0.56rem",
               letterSpacing: "0.24em",
-              color: "#3a3a3a",
+              color: "hsl(var(--muted-foreground))",
               textTransform: "uppercase",
               margin: "0 0 0.3rem",
-              fontFamily: "'Inter', system-ui, sans-serif",
             }}
           >
             Crafting Modern Experiences
@@ -846,9 +847,8 @@ export default function ProjectShowcase() {
                 fontSize: "clamp(1.8rem, 4.5vw, 3.8rem)",
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
-                color: "#fff",
+                color: "hsl(var(--foreground))",
                 textTransform: "uppercase",
-                fontFamily: "'Inter', system-ui, sans-serif",
               }}
             >
               VENTURE
@@ -859,9 +859,8 @@ export default function ProjectShowcase() {
                 fontSize: "clamp(1.5rem, 3.8vw, 3.2rem)",
                 fontWeight: 400,
                 fontStyle: "italic",
-                fontFamily: "Georgia, 'Times New Roman', serif",
                 background:
-                  "linear-gradient(135deg, #f472b6 0%, #ec4899 50%, #a855f7 100%)",
+                  "linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--primary)) 50%, hsl(var(--secondary)) 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -940,8 +939,8 @@ export default function ProjectShowcase() {
                 borderRadius: 3,
                 background:
                   i === activeIndex
-                    ? "linear-gradient(90deg, #f472b6, #a855f7)"
-                    : "#222",
+                    ? "linear-gradient(90deg, hsl(var(--accent)), hsl(var(--primary)))"
+                    : "hsl(var(--muted))",
                 border: "none",
                 cursor: "pointer",
                 padding: 0,

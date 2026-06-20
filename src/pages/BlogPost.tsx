@@ -13,7 +13,8 @@ export default function BlogPost() {
   useEffect(() => {
     const handler = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
     };
     window.addEventListener("scroll", handler);
@@ -32,12 +33,10 @@ export default function BlogPost() {
     <div className="min-h-screen bg-background noise-overlay">
       {/* Reading progress */}
       <div className="fixed top-0 left-0 right-0 z-[60] h-0.5">
-        <div
-          className="h-full transition-all duration-150"
-          style={{
-            width: `${progress}%`,
-            background: "linear-gradient(90deg, #f97316, #eab308)",
-          }}
+        <motion.div
+          className="h-full origin-left bg-gradient-to-r from-accent to-primary"
+          animate={{ scaleX: progress / 100 }}
+          transition={{ duration: 0.15 }}
         />
       </div>
 
@@ -53,7 +52,9 @@ export default function BlogPost() {
 
           <div className="flex flex-wrap items-center gap-3 mb-4">
             {post.tags.map((tag) => (
-              <span key={tag} className="tag-pill">{tag}</span>
+              <span key={tag} className="tag-pill">
+                {tag}
+              </span>
             ))}
             <span className="text-xs text-muted-foreground flex items-center gap-1">
               <Clock size={10} /> {post.readTime}
@@ -72,7 +73,10 @@ export default function BlogPost() {
           </p>
 
           {post.content.split("\n\n").map((paragraph, i) => (
-            <p key={i} className="text-sm text-secondary-foreground leading-relaxed mb-5">
+            <p
+              key={i}
+              className="text-sm text-secondary-foreground leading-relaxed mb-5"
+            >
               {paragraph}
             </p>
           ))}

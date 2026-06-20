@@ -57,10 +57,9 @@ function ServiceRow({
         className="group relative border-b border-border/50"
       >
         <div
-          className="grid md:grid-cols-[70px_1fr] gap-5 md:gap-10 py-10 md:py-14 transition-all duration-500"
-          style={{
-            opacity: dimmed ? 0.35 : 1,
-          }}
+          className={`grid md:grid-cols-[70px_1fr] gap-5 md:gap-10 py-10 md:py-14 transition-all duration-500 ${
+            dimmed ? "opacity-35" : "opacity-100"
+          }`}
         >
           {/* Number */}
           <div>
@@ -137,7 +136,7 @@ function ServiceRow({
                   h-28
                   rounded-2xl
                   overflow-hidden
-                  border border-white/10
+                  border border-border
                   shrink-0
                 "
               >
@@ -153,16 +152,13 @@ function ServiceRow({
 
         {/* Accent line */}
         <motion.div
-          className="absolute bottom-0 left-0 h-px bg-accent origin-left"
+          className="absolute bottom-0 left-0 right-0 h-px bg-accent origin-left"
           animate={{
             scaleX: isActive ? 1 : 0,
           }}
           transition={{
             duration: 0.6,
             ease: [0.7, 0, 0.3, 1],
-          }}
-          style={{
-            right: 0,
           }}
         />
       </div>

@@ -6,6 +6,49 @@
 
 @layer base {
   :root {
+    /* LIGHT MODE (default) */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
+
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 8%;
+
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 30%;
+
+    --muted: 0 0% 93%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 24 80% 50%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 24 80% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 97%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 0 0% 8%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 90%;
+    --sidebar-accent-foreground: 0 0% 20%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 0 0% 50%;
+  }
+
+  .dark {
+    /* DARK MODE */
     --background: 0 0% 3%;
     --foreground: 0 0% 95%;
 
@@ -34,8 +77,6 @@
     --input: 0 0% 12%;
     --ring: 24 80% 55%;
 
-    --radius: 0.75rem;
-
     --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 85%;
     --sidebar-primary: 0 0% 95%;
@@ -52,9 +93,13 @@
     @apply border-border;
   }
 
+  html,
   body {
     @apply bg-background text-foreground;
     font-family: "Inter", sans-serif;
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease;
   }
 
   h1,
@@ -79,14 +124,23 @@
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #f97316, #eab308, #f472b6);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent)),
+      hsl(var(--primary)),
+      hsl(var(--secondary-foreground))
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-warm {
-    background: linear-gradient(135deg, #f97316, #f59e0b);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent)),
+      hsl(var(--primary))
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -101,7 +155,7 @@
   }
 
   .glass-card:hover {
-    border-color: hsl(0 0% 20%);
+    border-color: hsl(var(--foreground) / 0.2);
   }
 
   .hover-lift {
@@ -136,12 +190,109 @@
   }
 
   .text-balance {
-    text-wrap: balance;
+    overflow-wrap: anywhere;
   }
 }
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+section {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+div {
+  min-width: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+}
+
+pre,
+code {
+  overflow-x: auto;
+}
+
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+}
+
+[data-framer-component-type] {
+  max-width: 100%;
+}
+
+.swiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.swiper-slide {
+  min-width: 0;
+}
+
+.snap-row {
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  overflow-x: auto;
+}
+.snap-row::-webkit-scrollbar {
+  display: none;
+}
+.snap-row > * {
+  scroll-snap-align: center;
 }
 
 ::-webkit-scrollbar {
@@ -151,7 +302,7 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(0 0% 18%);
+  background: hsl(var(--border));
   border-radius: 2px;
 }
 
@@ -184,41 +335,6 @@ html {
 @media (max-width: 767px) {
   body {
     padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 6.5rem);
-  }
-}
-
-/* Snap carousel utilities */
-.snap-row {
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.snap-row::-webkit-scrollbar {
-  display: none;
-}
-.snap-row > * {
-  scroll-snap-align: center;
-}
-
-@keyframes grain {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  10% {
-    transform: translate(-5%, -10%);
-  }
-  30% {
-    transform: translate(3%, -15%);
-  }
-  50% {
-    transform: translate(12%, 9%);
-  }
-  70% {
-    transform: translate(9%, 4%);
-  }
-  90% {
-    transform: translate(-1%, 7%);
   }
 }
 
@@ -261,12 +377,15 @@ html {
   inset: 0;
   border-radius: 9999px;
   padding: 1.5px;
-  background: linear-gradient(135deg, hsl(var(--accent)), #a855f7 50%, #ec4899);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--accent)),
+    hsl(var(--secondary-foreground)) 50%,
+    hsl(var(--primary))
+  );
+  mask:
+    linear-gradient(hsl(var(--background)) 0 0) content-box,
+    linear-gradient(hsl(var(--background)) 0 0);
   pointer-events: none;
   z-index: 1;
 }
@@ -294,116 +413,46 @@ html {
   }
 }
 
-/* =========================================
-   GLOBAL RESPONSIVE + OVERFLOW FIX
-========================================= */
-
-html {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+@keyframes grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  30% {
+    transform: translate(3%, -15%);
+  }
+  50% {
+    transform: translate(12%, 9%);
+  }
+  70% {
+    transform: translate(9%, 4%);
+  }
+  90% {
+    transform: translate(-1%, 7%);
+  }
 }
 
-body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  position: relative;
+.grain {
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  animation: grain 8s steps(10) infinite;
 }
 
-#root {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
-/* Better sizing */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+.scrollbar-none {
+  -ms-overflow-style: none;
 }
 
-/* Prevent media overflow */
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
+.font-satoshi {
+  font-family: "Satoshi Variable", sans-serif;
 }
 
-/* Prevent sections from overflowing */
-section {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-/* Prevent containers from creating horizontal scroll */
-div {
-  min-width: 0;
-}
-
-/* Typography responsiveness */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-/* Tables */
-table {
-  display: block;
-  overflow-x: auto;
-  width: 100%;
-}
-
-/* Long code blocks */
-pre,
-code {
-  overflow-x: auto;
-}
-
-/* Form elements */
-input,
-textarea,
-select,
-button {
-  max-width: 100%;
-}
-
-/* Fix Framer Motion transforms */
-[data-framer-component-type] {
-  max-width: 100%;
-}
-
-/* Swiper */
-.swiper {
-  width: 100%;
-  overflow: hidden;
-}
-
-.swiper-slide {
-  min-width: 0;
-}
-
-/* Snap rows */
-.snap-row {
-  width: 100%;
-  overflow-x: auto;
-}
-
-/* Mobile */
+/* Mobile typography responsiveness */
 @media (max-width: 768px) {
   body {
     overflow-x: hidden;
@@ -425,41 +474,4 @@ button {
   h3 {
     font-size: clamp(1.5rem, 6vw, 2rem);
   }
-}
-
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-none {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.grain {
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  animation: grain 8s steps(10) infinite;
-}
-
-@keyframes grain {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(-5%, 5%);
-  }
-  40% {
-    transform: translate(5%, -5%);
-  }
-  60% {
-    transform: translate(-5%, 0);
-  }
-  80% {
-    transform: translate(5%, 5%);
-  }
-}
-
-.font-satoshi {
-  font-family: "Satoshi Variable", sans-serif;
 }

@@ -8,11 +8,7 @@ export default function SignatureCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="bg-card border border-border rounded-[24px] p-8 flex flex-col justify-between relative min-h-[340px]"
-      style={{
-        background:
-          "radial-gradient(600px 300px at 50% 40%, rgba(var(--primary)/0.07), transparent 70%)",
-      }}
+      className="bg-card border border-border rounded-[24px] p-8 flex flex-col justify-between relative min-h-[340px] bg-[radial-gradient(600px_300px_at_50%_40%,hsl(var(--primary)/0.07),transparent_70%)]"
     >
       {/* Label */}
       <p className="text-xs tracking-widest text-muted-foreground uppercase">
@@ -23,7 +19,7 @@ export default function SignatureCard() {
       <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground tracking-tight">
         Leave your
         <br />
-        <span className="font-display italic bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent text-4xl md:text-5xl">
+        <span className="font-display italic bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent text-4xl md:text-5xl">
           signature
         </span>
       </h2>
@@ -48,13 +44,7 @@ export default function SignatureCard() {
       {/* CTA Button */}
       <a
         href="/guestbook"
-        className="mt-6 rounded-full border border-border bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent px-6 py-2 text-sm font-medium flex items-center gap-2 shadow hover:brightness-110 transition-all"
-        style={{
-          color: "transparent",
-          backgroundClip: "text",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
+        className="mt-6 rounded-full border border-border bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent px-6 py-2 text-sm font-medium flex items-center gap-2 shadow hover:brightness-110 transition-all"
       >
         Sign Guestbook
         <span aria-hidden="true">→</span>

@@ -483,68 +483,12 @@ export default function About() {
       {/* ═══════════════════════════════════════════════════════════════════
           NEW SECTION — "ABOUT ME" full hero 
       ═══════════════════════════════════════════════════════════════════ */}
-      <section
-        className="
-relative
-h-screen
-pt-40
-md:pt-52
-pb-32
-flex
-flex-col
-justify-center
-items-center
-text-center
-overflow-hidden
-"
-      >
-        <div
-          className="absolute inset-0 -z-10 opacity-60"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 30%, rgba(255,255,255,0.05), transparent 60%)",
-          }}
-        />
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="font-extrabold uppercase leading-[0.9] tracking-tight text-foreground"
-          style={{
-            fontSize: "clamp(2.8rem, 12vw, 9rem)",
-          }}
-        >
-          About Me
-        </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-          className="mt-12 text-xs md:text-sm tracking-[0.35em]"
-        >
-          Get to know more about
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
-          className="font-serif italic text-foreground mt-6"
-          style={{ fontSize: "clamp(1.8rem, 6vw, 3.2rem)" }}
-        >
-          who i am.
-        </motion.p>
-      </section>
-
-      <div className="px-5 md:px-16 lg:px-24 py-12 md:py-16">
+      <div className="px-5 md:px-16 lg:px-24 pt-32 md:pt-40 pb-12 md:pb-16">
         <div className="max-w-7xl mx-auto">
           {/* ───────────────── STORY ───────────────── */}
           <ScrollReveal className="text-center mb-6">
-            <p className="section-label">PHOTOGRAPHY • TRAVEL • LIFE MOMENTS</p>
+            <p className="section-label">GET TO KNOW ME BETTER </p>
 
             <h2 className="section-heading mb-6">
               Nice to meet you. I'm{" "}
@@ -625,9 +569,7 @@ overflow-hidden
             <ScrollReveal>
               <div className="space-y-7 text-[15px] md:text-[16px] leading-[2.1] text-secondary-foreground">
                 <p>
-                  Hey, I'm{" "}
-                  <span className="text-foreground font-medium">Anjali</span> —
-                  a pre-final year student at IIIT Jabalpur who builds for the
+                  I'm a final year student at IIIT Jabalpur who builds for the
                   web and is slowly falling for the part of computer science
                   that lives under the hood. There's a specific kind of joy I've
                   gotten hooked on: that moment when an API stops returning

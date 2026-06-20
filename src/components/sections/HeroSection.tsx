@@ -8,8 +8,8 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export default function HeroSection() {
   const [mousePos, setMousePos] = useState({
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2,
+    x: typeof window !== "undefined" ? window.innerWidth / 2 : 0,
+    y: typeof window !== "undefined" ? window.innerHeight / 2 : 0,
   });
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function HeroSection() {
         duration: 1,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="relative min-h-screen overflow-hidden bg-black"
+      className="relative min-h-screen overflow-hidden bg-background"
     >
       {/* Grain */}
       <div className="grain absolute inset-0 opacity-[0.03]" />
@@ -54,20 +54,14 @@ export default function HeroSection() {
           h-[500px]
           w-[500px]
           rounded-full
-          bg-orange-500/10
+          bg-accent/10
           blur-[140px]
           pointer-events-none
         "
       />
 
       {/* Vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.85) 100%)",
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_40%,hsl(var(--background)_/_0.92)_100%)]" />
 
       {/* Main */}
       <div
@@ -79,44 +73,79 @@ export default function HeroSection() {
         justify-center
         text-center
         px-6
+        pt-24
         pb-20
+        md:pt-0
+        md:pb-24
       "
       >
-        {/* Pill Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="mb-10"
+        {/* Pill Button — with traced glow border */}
+        <Link
+          to="/contact"
+          className="
+    group
+    relative
+    inline-flex
+    items-center
+    rounded-full
+    overflow-hidden
+    p-[1px]
+    mb-6 md:mb-8
+  "
         >
-          <Link
-            to="/contact"
-            className="
-            group
-            relative
-            inline-flex
-            items-center
-            gap-2.5
-            rounded-full
-            border border-white/10
-            bg-[#0a0a0a]
-            px-6 py-3
-          "
-          >
-            <span className="text-sm text-zinc-300 font-medium">Say Hi!</span>
+          {/* Rotating border beam */}
+          <motion.span
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute inset-[-80%] rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,transparent_285deg,hsl(var(--accent))_315deg,hsl(var(--secondary-foreground))_340deg,transparent_360deg)]"
+          />
 
-            <FaXTwitter size={13} className="text-zinc-500" />
+          {/* Glow */}
+          <motion.span
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute inset-[-80%] rounded-full blur-md opacity-80 bg-[conic-gradient(from_0deg,transparent_0deg,transparent_285deg,hsl(var(--accent))_315deg,hsl(var(--secondary-foreground))_340deg,transparent_360deg)]"
+          />
+
+          {/* Button */}
+          <span
+            className="
+      relative
+      z-10
+      flex
+      items-center
+      gap-1.5
+      rounded-full
+      bg-card
+      px-4
+      py-1.5
+    "
+          >
+            <span className="text-[11px] font-medium tracking-wide text-card-foreground">
+              Say Hi!
+            </span>
+
+            <FaXTwitter size={10} className="text-muted-foreground" />
 
             <ChevronRight
-              size={15}
+              size={12}
               className="
-              text-zinc-500
-              transition-transform duration-300
-              group-hover:translate-x-1
-            "
+        text-muted-foreground
+        transition-transform
+        duration-300
+        group-hover:translate-x-1
+      "
             />
-          </Link>
-        </motion.div>
+          </span>
+        </Link>
 
         {/* Name */}
         <motion.h1
@@ -124,17 +153,17 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           className="
-  font-sans
-  not-italic
-  font-black
-  text-white
-  leading-[0.85]
-  tracking-[-0.03em]
-  text-[6rem]
-  sm:text-[8rem]
-  md:text-[10.5rem]
-  xl:text-[13rem]
-"
+          font-sans
+          not-italic
+          font-black
+          text-foreground
+          leading-[0.85]
+          tracking-[-0.03em]
+          text-[6.5rem]
+          sm:text-[8.5rem]
+          md:text-[11rem]
+          xl:text-[14rem]
+        "
         >
           ANJALI
         </motion.h1>
@@ -145,12 +174,14 @@ export default function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
           className="
-          mt-7
+          mt-10
+          md:mt-12
           uppercase
-          tracking-[0.5em]
-          text-zinc-500
-          text-[11px]
-          md:text-sm
+          tracking-[0.4em]
+          text-muted-foreground
+          text-sm
+          md:text-base
+          font-medium
         "
         >
           I DESIGN AND BUILD SCALABLE SYSTEMS THAT
@@ -162,14 +193,16 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           className="
-          mt-3
+          mt-5 md:mt-6
+          mb-0
           font-serif
           italic
           leading-none
-          text-white
-          text-3xl
-          md:text-5xl
-          xl:text-6xl
+          text-foreground
+          tracking-[-0.01em]
+          text-4xl
+          md:text-6xl
+          xl:text-7xl
         "
         >
           solve real-world problems.
@@ -177,29 +210,33 @@ export default function HeroSection() {
       </div>
 
       {/* Left */}
-      <div className="absolute left-8 bottom-8 md:left-14 md:bottom-10">
-        <MapPin size={22} strokeWidth={1.8} className="mb-4 text-emerald-400" />
+      <div className="absolute left-6 bottom-6 md:left-14 md:bottom-10">
+        <MapPin
+          size={22}
+          strokeWidth={1.8}
+          className="mb-3 md:mb-4 text-emerald-400"
+        />
 
-        <h3 className="text-base md:text-lg font-bold uppercase text-white">
+        <h3 className="font-sans not-italic text-sm md:text-lg font-bold uppercase text-foreground">
           Based in Jaipur,
         </h3>
-        <p className="mt-0.5 text-base md:text-lg text-zinc-500 uppercase">
+        <p className="font-sans not-italic mt-0.5 text-sm md:text-lg text-muted-foreground uppercase">
           India
         </p>
       </div>
 
       {/* Right */}
-      <div className="absolute right-8 bottom-8 md:right-14 md:bottom-10 text-right">
+      <div className="absolute right-6 bottom-6 md:right-14 md:bottom-10 text-right">
         <Layers
           size={22}
           strokeWidth={1.8}
-          className="mb-4 ml-auto text-sky-400"
+          className="mb-3 md:mb-4 ml-auto text-sky-400"
         />
 
-        <h3 className="text-base md:text-lg font-bold uppercase text-white">
+        <h3 className="font-sans not-italic text-sm md:text-lg font-bold uppercase text-foreground">
           Full Stack Dev,
         </h3>
-        <p className="mt-0.5 text-base md:text-lg text-zinc-500 uppercase">
+        <p className="font-sans not-italic mt-0.5 text-sm md:text-lg text-muted-foreground uppercase">
           & AI Engineer
         </p>
       </div>

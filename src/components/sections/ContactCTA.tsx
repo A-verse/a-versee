@@ -27,59 +27,20 @@ function GlowRing() {
     "
     >
       {/* Ambient Glow */}
-      <div
-        className="absolute inset-[-20%] rounded-full blur-[70px]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(96,165,250,.25) 0%, rgba(168,85,247,.18) 45%, transparent 75%)",
-        }}
-      />
+      <div className="absolute inset-[-20%] rounded-full blur-[70px] bg-[radial-gradient(circle,hsl(var(--primary)/0.18)_0%,hsl(var(--accent)/0.14)_45%,transparent_75%)]" />
 
       {/* Main Ring */}
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          border: "4px solid transparent",
-          background: `
-            linear-gradient(#000,#000) padding-box,
-            linear-gradient(
-              135deg,
-              #60a5fa,
-              #818cf8,
-              #a855f7,
-              #e879f9
-            ) border-box
-          `,
-          boxShadow: `
-            0 0 20px rgba(96,165,250,.7),
-            0 0 50px rgba(168,85,247,.35)
-          `,
-        }}
-      />
+      <div className="absolute inset-0 rounded-full border-[4px] border-transparent bg-[linear-gradient(hsl(var(--background)),hsl(var(--background)))_padding-box,linear-gradient(135deg,hsl(var(--primary)),hsl(var(--secondary-foreground)),hsl(var(--accent)),hsl(var(--accent)/0.8))_border-box] shadow-[0_0_20px_hsl(var(--primary)/0.28),0_0_50px_hsl(var(--accent)/0.16)]" />
 
       {/* Bottom Highlight */}
-      <div
-        className="
-        absolute
-        bottom-2
-        left-1/2
-        -translate-x-1/2
-        w-14
-        h-3
-        rounded-full
-        blur-xl
-      "
-        style={{
-          background: "rgba(255,255,255,.85)",
-        }}
-      />
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 h-3 w-14 rounded-full blur-xl bg-foreground/80" />
     </motion.div>
   );
 }
 
 export default function ContactCTA() {
   return (
-    <section className="bg-black overflow-hidden py-20 lg:py-28">
+    <section className="bg-background overflow-hidden py-20 lg:py-28">
       <div className="max-w-[1300px] mx-auto px-6 lg:px-12">
         <div className="relative">
           {/* Ring */}
@@ -133,7 +94,7 @@ export default function ContactCTA() {
                 lg:h-[72px]
                 rounded-full
                 overflow-hidden
-                border border-white/10
+                border border-border
                 shrink-0
               "
               >
@@ -153,7 +114,7 @@ export default function ContactCTA() {
                 sm:text-[2.8rem]
                 md:text-[4.8rem]
                 lg:text-[7rem]
-                text-white
+                text-foreground
               "
               >
                 Let's create
@@ -170,7 +131,7 @@ export default function ContactCTA() {
               sm:text-[2.8rem]
               md:text-[4.8rem]
               lg:text-[7rem]
-              text-zinc-500
+              text-muted-foreground
             "
             >
               something real.
@@ -181,7 +142,7 @@ export default function ContactCTA() {
               className="
               mt-6
               max-w-lg
-              text-zinc-500
+              text-muted-foreground
               text-base
               leading-relaxed
             "
@@ -197,8 +158,8 @@ export default function ContactCTA() {
                 px-6
                 py-3
                 rounded-full
-                bg-white
-                text-black
+                bg-foreground
+                text-background
                 text-sm
                 font-medium
                 hover:scale-[1.03]
@@ -213,11 +174,11 @@ export default function ContactCTA() {
                 px-6
                 py-3
                 rounded-full
-                border border-white/10
-                bg-white/[0.03]
-                text-white
+                border border-border
+                bg-card
+                text-card-foreground
                 text-sm
-                hover:bg-white/[0.06]
+                hover:bg-muted
                 transition
               "
               >

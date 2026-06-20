@@ -47,7 +47,7 @@ export default function SkillsSection() {
     <section className="section-padding relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <ScrollReveal>
-          <div className="flex items-end justify-between gap-6 mb-10 md:mb-14 flex-wrap">
+          <div className="flex items-end text-align-center gap-6 mb-10 md:mb-14 flex-wrap">
             <div>
               <p className="section-label">Technical Arsenal</p>
               <h2 className="section-heading">
@@ -55,10 +55,6 @@ export default function SkillsSection() {
                 <span className="font-serif italic gradient-text">Behind</span>
               </h2>
             </div>
-            <p className="text-xs md:text-sm text-muted-foreground max-w-xs leading-relaxed">
-              The stack I reach for — refined over projects, tuned for craft and
-              speed.
-            </p>
           </div>
         </ScrollReveal>
 
