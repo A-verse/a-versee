@@ -1,0 +1,465 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 3%;
+
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 0 0% 70%;
+
+    --muted: 0 0% 11%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 24 80% 55%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 24 80% 55%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 0 0% 95%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 85%;
+    --sidebar-border: 0 0% 12%;
+    --sidebar-ring: 0 0% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+  }
+
+  ::selection {
+    background: hsl(24 80% 55% / 0.3);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  .font-serif {
+    font-family: "Playfair Display", serif;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #f97316, #eab308, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-warm {
+    background: linear-gradient(135deg, #f97316, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-padding {
+    @apply px-5 md:px-16 lg:px-24 py-14 md:py-28;
+  }
+
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-sm border border-border rounded-2xl transition-all duration-500;
+  }
+
+  .glass-card:hover {
+    border-color: hsl(0 0% 20%);
+  }
+
+  .hover-lift {
+    @apply transition-all duration-500 hover:-translate-y-1.5;
+  }
+
+  .tag-pill {
+    @apply text-[10px] md:text-xs px-2.5 py-1 rounded-full bg-muted text-muted-foreground border border-border;
+  }
+
+  .section-label {
+    @apply text-[10px] md:text-xs tracking-[0.3em] uppercase text-accent font-medium mb-3 md:mb-4;
+  }
+
+  .section-heading {
+    @apply text-[1.75rem] md:text-5xl lg:text-6xl tracking-tight;
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-7 py-3.5 bg-foreground text-background font-medium text-sm rounded-full hover:bg-foreground/90 transition-all duration-300;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-7 py-3.5 border border-border text-foreground font-medium text-sm rounded-full hover:border-foreground/40 hover:bg-card transition-all duration-300;
+  }
+
+  .divider-line {
+    @apply h-px bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(0 0% 18%);
+  border-radius: 2px;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Reserve space for the floating mobile bottom nav */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 6.5rem);
+  }
+}
+
+/* Snap carousel utilities */
+.snap-row {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.snap-row::-webkit-scrollbar {
+  display: none;
+}
+.snap-row > * {
+  scroll-snap-align: center;
+}
+
+@keyframes grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  30% {
+    transform: translate(3%, -15%);
+  }
+  50% {
+    transform: translate(12%, 9%);
+  }
+  70% {
+    transform: translate(9%, 4%);
+  }
+  90% {
+    transform: translate(-1%, 7%);
+  }
+}
+
+.noise-overlay::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* Moncy-style pill CTA with rotating gradient ring */
+.pill-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  background: hsl(var(--background) / 0.85);
+  color: hsl(var(--foreground));
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+}
+.pill-cta:hover {
+  transform: translateY(-2px);
+}
+.pill-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  padding: 1.5px;
+  background: linear-gradient(135deg, hsl(var(--accent)), #a855f7 50%, #ec4899);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+.pill-cta-ring {
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    hsl(var(--accent) / 0.6) 25%,
+    transparent 50%
+  );
+  animation: pill-spin 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+  filter: blur(8px);
+}
+.pill-cta:hover .pill-cta-ring {
+  opacity: 1;
+}
+@keyframes pill-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   GLOBAL RESPONSIVE + OVERFLOW FIX
+========================================= */
+
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Better sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent media overflow */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent sections from overflowing */
+section {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Prevent containers from creating horizontal scroll */
+div {
+  min-width: 0;
+}
+
+/* Typography responsiveness */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Tables */
+table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* Long code blocks */
+pre,
+code {
+  overflow-x: auto;
+}
+
+/* Form elements */
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+}
+
+/* Fix Framer Motion transforms */
+[data-framer-component-type] {
+  max-width: 100%;
+}
+
+/* Swiper */
+.swiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.swiper-slide {
+  min-width: 0;
+}
+
+/* Snap rows */
+.snap-row {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .section-padding {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+
+  h2 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.grain {
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-5%, 5%);
+  }
+  40% {
+    transform: translate(5%, -5%);
+  }
+  60% {
+    transform: translate(-5%, 0);
+  }
+  80% {
+    transform: translate(5%, 5%);
+  }
+}
+
+.font-satoshi {
+  font-family: "Satoshi Variable", sans-serif;
+}
