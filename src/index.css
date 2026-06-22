@@ -4,9 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
 @layer base {
   :root {
-    /* LIGHT MODE (default) */
+    /* LIGHT MODE */
     --background: 0 0% 100%;
     --foreground: 0 0% 8%;
 
@@ -48,48 +52,64 @@
   }
 
   .dark {
-    /* DARK MODE */
-    --background: 0 0% 3%;
+    /* Main */
+    --background: 0 0% 0%;
     --foreground: 0 0% 95%;
 
-    --card: 0 0% 6%;
+    /* Cards */
+    --card: 0 0% 0%;
     --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 6%;
+    /* Popover */
+    --popover: 0 0% 0%;
     --popover-foreground: 0 0% 95%;
 
+    /* Primary */
     --primary: 0 0% 95%;
-    --primary-foreground: 0 0% 3%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 0 0% 9%;
+    /* Secondary */
+    --secondary: 0 0% 5%;
     --secondary-foreground: 0 0% 70%;
 
-    --muted: 0 0% 11%;
-    --muted-foreground: 0 0% 45%;
+    /* Muted */
+    --muted: 0 0% 5%;
+    --muted-foreground: 0 0% 50%;
 
+    /* Accent */
     --accent: 24 80% 55%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 50%;
+    /* Misc */
+    --destructive: 0 63% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
+    /* Borders */
+    --border: 0 0% 10%;
+    --input: 0 0% 10%;
     --ring: 24 80% 55%;
 
-    --sidebar-background: 0 0% 5%;
+    /* Sidebar */
+    --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 0 0% 85%;
     --sidebar-primary: 0 0% 95%;
-    --sidebar-primary-foreground: 0 0% 4%;
-    --sidebar-accent: 0 0% 12%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 5%;
     --sidebar-accent-foreground: 0 0% 85%;
-    --sidebar-border: 0 0% 12%;
+    --sidebar-border: 0 0% 10%;
     --sidebar-ring: 0 0% 50%;
   }
 }
 
+/* ============================================================
+   BASE RESETS
+   ============================================================ */
+
 @layer base {
-  * {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
     @apply border-border;
   }
 
@@ -100,6 +120,9 @@
     transition:
       background-color 0.4s ease,
       color 0.4s ease;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   h1,
@@ -108,8 +131,53 @@
   h4,
   h5,
   h6 {
-    font-family: "Playfair Display", serif;
-    font-style: italic;
+    font-family: "Inter", sans-serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  p,
+  span {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  section {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  div {
+    min-width: 0;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    max-width: 100%;
   }
 
   ::selection {
@@ -118,36 +186,66 @@
   }
 }
 
+/* ============================================================
+   GLOBAL LAYOUT
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   TYPOGRAPHY SYSTEM — two heading styles only
+   ============================================================ */
+
 @layer components {
-  .font-serif {
+  /*
+   * PRIMARY HEADING — Inter Black
+   * Use for: section titles, large display text
+   * e.g. "The Magic", "PROJECTS", "CONTACT"
+   */
+  .font-display {
+    font-family: "Inter", sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    color: hsl(var(--foreground));
+  }
+
+  /*
+   * ACCENT HEADING — Playfair Display italic + purple→pink gradient
+   * Use for: the highlighted/decorative word in a heading
+   * e.g. "Behind", "magic", accent keywords
+   * NO other colour utility classes should be used on headings.
+   */
+  .font-accent {
     font-family: "Playfair Display", serif;
-  }
-
-  .gradient-text {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--accent)),
-      hsl(var(--primary)),
-      hsl(var(--secondary-foreground))
-    );
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(to right, #c084fc, #ec4899);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+}
 
-  .gradient-text-warm {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--accent)),
-      hsl(var(--primary))
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+/* ============================================================
+   COMPONENT UTILITIES
+   ============================================================ */
 
+@layer components {
   .section-padding {
     @apply px-5 md:px-16 lg:px-24 py-14 md:py-28;
+  }
+
+  .section-label {
+    @apply text-[10px] md:text-xs tracking-[0.3em] uppercase text-accent font-medium mb-3 md:mb-4;
   }
 
   .glass-card {
@@ -166,17 +264,6 @@
     @apply text-[10px] md:text-xs px-2.5 py-1 rounded-full bg-muted text-muted-foreground border border-border;
   }
 
-  .section-label {
-    @apply text-[10px] md:text-xs tracking-[0.3em] uppercase text-accent font-medium mb-3 md:mb-4;
-  }
-
-  .section-heading {
-    @apply text-[1.75rem] md:text-5xl lg:text-6xl tracking-tight;
-    font-family: "Playfair Display", serif;
-    font-style: italic;
-    font-weight: 600;
-  }
-
   .btn-primary {
     @apply inline-flex items-center gap-2 px-7 py-3.5 bg-foreground text-background font-medium text-sm rounded-full hover:bg-foreground/90 transition-all duration-300;
   }
@@ -192,169 +279,16 @@
   .text-balance {
     overflow-wrap: anywhere;
   }
-}
 
-html {
-  scroll-behavior: smooth;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  position: relative;
-}
-
-#root {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-section {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-div {
-  min-width: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-table {
-  display: block;
-  overflow-x: auto;
-  width: 100%;
-}
-
-pre,
-code {
-  overflow-x: auto;
-}
-
-input,
-textarea,
-select,
-button {
-  max-width: 100%;
-}
-
-[data-framer-component-type] {
-  max-width: 100%;
-}
-
-.swiper {
-  width: 100%;
-  overflow: hidden;
-}
-
-.swiper-slide {
-  min-width: 0;
-}
-
-.snap-row {
-  scroll-snap-type: x mandatory;
-  width: 100%;
-  overflow-x: auto;
-}
-.snap-row::-webkit-scrollbar {
-  display: none;
-}
-.snap-row > * {
-  scroll-snap-align: center;
-}
-
-::-webkit-scrollbar {
-  width: 3px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
-  border-radius: 2px;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-.animate-marquee {
-  animation: marquee 25s linear infinite;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Reserve space for the floating mobile bottom nav */
-@media (max-width: 767px) {
-  body {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 6.5rem);
+  .font-satoshi {
+    font-family: "Satoshi Variable", sans-serif;
   }
 }
 
-.noise-overlay::before {
-  content: "";
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  right: -50%;
-  bottom: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  animation: grain 8s steps(10) infinite;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.4;
-}
+/* ============================================================
+   PILL CTA — Moncy-style rotating gradient ring
+   ============================================================ */
 
-/* Moncy-style pill CTA with rotating gradient ring */
 .pill-cta {
   position: relative;
   display: inline-flex;
@@ -368,9 +302,11 @@ button {
   overflow: hidden;
   transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
 }
+
 .pill-cta:hover {
   transform: translateY(-2px);
 }
+
 .pill-cta::before {
   content: "";
   position: absolute;
@@ -389,6 +325,7 @@ button {
   pointer-events: none;
   z-index: 1;
 }
+
 .pill-cta-ring {
   position: absolute;
   inset: -40%;
@@ -404,9 +341,127 @@ button {
   z-index: 0;
   filter: blur(8px);
 }
+
 .pill-cta:hover .pill-cta-ring {
   opacity: 1;
 }
+
+/* ============================================================
+   NOISE OVERLAY
+   ============================================================ */
+
+.noise-overlay::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+.grain {
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  animation: grain 8s steps(10) infinite;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 2px;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+}
+
+/* ============================================================
+   SCROLL SNAP
+   ============================================================ */
+
+.snap-row {
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.snap-row::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-row > * {
+  scroll-snap-align: center;
+}
+
+/* ============================================================
+   SWIPER
+   ============================================================ */
+
+.swiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.swiper-slide {
+  min-width: 0;
+}
+
+[data-framer-component-type] {
+  max-width: 100%;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
 @keyframes pill-spin {
   to {
     transform: rotate(360deg);
@@ -435,29 +490,17 @@ button {
   }
 }
 
-.grain {
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  animation: grain 8s steps(10) infinite;
-}
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
 
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-none {
-  -ms-overflow-style: none;
-}
-
-.font-satoshi {
-  font-family: "Satoshi Variable", sans-serif;
-}
-
-/* Mobile typography responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   body {
-    overflow-x: hidden;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 6.5rem);
   }
+}
 
+@media (max-width: 768px) {
   .section-padding {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
@@ -466,11 +509,9 @@ button {
   h1 {
     font-size: clamp(2.5rem, 10vw, 4rem);
   }
-
   h2 {
     font-size: clamp(2rem, 8vw, 3rem);
   }
-
   h3 {
     font-size: clamp(1.5rem, 6vw, 2rem);
   }

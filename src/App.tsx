@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import BlogPage from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
-import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -36,14 +35,7 @@ const AnimatedRoutes = () => {
             </PageTransition>
           }
         />
-        <Route
-          path="/projects"
-          element={
-            <PageTransition>
-              <Projects />
-            </PageTransition>
-          }
-        />
+
         <Route
           path="/projects/:id"
           element={

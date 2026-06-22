@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown, Moon, Sun, Command } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const navItems = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Work", href: "/work" },
-  { name: "Blogs", href: "/blogs" },
+  { name: "Projects", href: "/projects" },
+  { name: "Creative", href: "/creative" },
+  { name: "Blogs", href: "/blog" },
 ];
 
 const moreItems = [
@@ -39,6 +41,18 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isDark, setIsDark] = useState(true);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+
+    check();
+
+    window.addEventListener("resize", check);
+
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   // ── Scroll detection — collapses navbar to a single compact
   // centered pill once user scrolls past the hero section ──
   useEffect(() => {
@@ -66,281 +80,174 @@ export default function Navbar() {
     localStorage.setItem("theme", next ? "dark" : "light");
   };
 
+  if (isMobile) {
+    return (
+      <header className="fixed top-5 left-0 right-0 z-50 px-4">
+        <div className="mx-auto flex max-w-sm items-center justify-between rounded-full border border-border bg-background/80 px-4 py-2 backdrop-blur-xl">
+          <Link to="/" className="flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-xs font-bold">
+              AK
+            </div>
+
+            <span className="text-sm font-medium">Anjali Kamal</span>
+          </Link>
+
+          <button
+            onClick={toggleTheme}
+            className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted transition-colors"
+          >
+            {isDark ? <Moon size={15} /> : <Sun size={15} />}
+          </button>
+        </div>
+      </header>
+    );
+  }
+
   return (
     <header className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4">
       <motion.div
         layout
         transition={{ type: "spring", stiffness: 260, damping: 28 }}
         className={`
-  flex items-center
-  rounded-full
-  border border-border/10
-  bg-background/60
-  text-foreground
-  backdrop-blur-2xl
-  shadow-[0_8px_30px_hsl(var(--foreground)/0.18)]
-  px-1.5 py-1
-  gap-1
-  ${scrolled ? "justify-center" : "w-full max-w-6xl justify-between"}
-`}
+      flex items-center
+      rounded-full
+      border border-border/10
+      bg-background/60
+      text-foreground
+      backdrop-blur-2xl
+      shadow-none
+      px-2 py-1
+      gap-1
+      ${scrolled ? "justify-center" : "w-full max-w-6xl justify-between"}
+    `}
       >
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 pl-2 pr-1">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-card-foreground font-bold text-xs">
-            AK
-          </div>
-
-          <AnimatePresence>
-            {!scrolled && (
-              <motion.div
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: "auto" }}
-                exit={{ opacity: 0, width: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden whitespace-nowrap leading-tight text-left ml-1"
-              >
-                <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                  Creative Engineer
-                </p>
-                <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-accent">
-                  Available for hire
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Link>
-
-        {/* Center nav pill */}
-        <nav className="flex items-center gap-0.5 rounded-full bg-card/40 px-1 py-1">
-          {navItems.map((item) => {
-            const active = location.pathname === item.href;
-
-            return (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="relative px-3.5 py-1.5 rounded-full text-[13px] font-medium transition-colors"
-              >
-                {active && (
-                  <motion.div
-                    layoutId="navbar-pill"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    className="absolute inset-0 rounded-full bg-foreground"
-                  />
-                )}
-                <span
-                  className={`relative z-10 ${
-                    active
-                      ? "text-background"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {item.name}
-                </span>
-              </Link>
-            );
-          })}
-
-          {/* More dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setMoreOpen(true)}
-            onMouseLeave={() => setMoreOpen(false)}
+        <motion.div
+          animate={{
+            width: scrolled ? 0 : "auto",
+            opacity: scrolled ? 0 : 1,
+            marginRight: scrolled ? 0 : 12,
+          }}
+          transition={{
+            duration: 0.35,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="overflow-visible"
+        >
+          <Link
+            to="/"
+            className="flex items-center gap-3 rounded-full px-3 py-2"
           >
+            <div
+              className="
+    flex
+    h-10
+    w-10
+    items-center
+    justify-center
+    rounded-full
+    border
+    border-border
+    bg-card/80
+    backdrop-blur-xl
+    shadow-sm
+    overflow-hidden
+  "
+            >
+              <img
+                src={logo}
+                alt="Logo"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </Link>
+        </motion.div>
+
+        {/* Navigation */}
+        <nav className="flex items-center gap-1">
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              to={item.href}
+              className={`rounded-full px-4 py-2 text-sm transition-colors ${
+                location.pathname === item.href
+                  ? "bg-foreground text-background"
+                  : "hover:bg-muted"
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
+
+          {/* More */}
+          <div className="relative">
             <button
-              className={`
-                flex items-center gap-1
-                px-3.5 py-1.5
-                rounded-full
-                text-[13px] font-medium
-                transition-colors
-                ${
-                  moreOpen
-                    ? "bg-foreground text-background"
-                    : "text-muted-foreground hover:text-foreground"
-                }
-              `}
+              onClick={() => setMoreOpen(!moreOpen)}
+              className="flex items-center gap-1 rounded-full px-4 py-2 text-sm hover:bg-muted"
             >
               More
-              <ChevronDown
-                size={13}
-                className={`transition-transform duration-300 ${
-                  moreOpen ? "rotate-180" : ""
-                }`}
-              />
+              <ChevronDown size={15} />
             </button>
 
             <AnimatePresence>
               {moreOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.96 }}
-                  transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="
-                    absolute top-full mt-3 right-0
-                    flex
-                    rounded-2xl
-                    border border-border
-                    bg-card
-                    shadow-[0_20px_60px_hsl(var(--foreground)/0.22)]
-                    overflow-hidden
-                    min-w-[420px]
-                  "
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="absolute right-0 mt-2 w-60 rounded-2xl border border-border bg-background p-2 shadow-xl"
                 >
-                  {/* Featured panel */}
-                  <Link
-                    to="/labs"
-                    className="
-                      relative flex-1
-                      w-[180px]
-                      flex flex-col justify-end
-                      p-5
-                      border-r border-border
-                      bg-gradient-to-br from-background/60 to-transparent
-                      hover:bg-background/70
-                      transition-colors
-                    "
-                  >
-                    <p className="text-base font-bold text-foreground mb-1">
-                      Labs
-                    </p>
-                    <p className="text-xs leading-snug text-muted-foreground">
-                      Experimental playground &amp; fun micro-tools
-                    </p>
-                  </Link>
-
-                  {/* List items */}
-                  <div className="flex flex-col gap-1 p-2 flex-1">
-                    {moreItems.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className="
-                          flex items-center gap-3
-                          rounded-xl px-3 py-2.5
-                          hover:bg-muted
-                          transition-colors
-                        "
-                      >
-                        <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-card/50 text-muted-foreground">
-                          {item.icon === "link" && (
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1" />
-                              <path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1" />
-                            </svg>
-                          )}
-                          {item.icon === "monitor" && (
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <rect x="2" y="3" width="20" height="14" rx="2" />
-                              <path d="M8 21h8M12 17v4" />
-                            </svg>
-                          )}
-                          {item.icon === "book" && (
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <rect x="5" y="2" width="14" height="20" rx="2" />
-                            </svg>
-                          )}
-                        </span>
-                        <span>
-                          <p className="text-sm font-semibold text-foreground">
-                            {item.name}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {item.desc}
-                          </p>
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
+                  {moreItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="block rounded-xl px-4 py-3 hover:bg-muted"
+                      onClick={() => setMoreOpen(false)}
+                    >
+                      <p className="font-medium">{item.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {item.desc}
+                      </p>
+                    </Link>
+                  ))}
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
         </nav>
 
-        {/* Right side controls */}
-        <div className="flex items-center gap-1.5 pl-1 pr-1">
-          {/* Theme toggle */}
+        {/* Right */}
+        <div className="flex items-center gap-2 border-l border-border/20 pl-3">
+          {/* Theme toggle always visible */}
           <button
             onClick={toggleTheme}
-            aria-label="Toggle theme"
-            title="Toggle theme"
-            className="
-              flex h-8 w-8 items-center justify-center
-              rounded-full
-text-muted-foreground
-hover:text-foreground
-              hover:bg-muted
-              transition-colors
-            "
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border hover:bg-muted"
           >
-            {isDark ? <Moon size={15} /> : <Sun size={15} />}
+            {isDark ? <Moon size={16} /> : <Sun size={16} />}
           </button>
 
-          {/* Book a Call */}
-          <Link
-            to="/contact"
-            className="
-    relative
-    overflow-hidden
-    rounded-full
-    px-3.5 py-1.5
-    text-[13px]
-    font-semibold
-    text-background
-    whitespace-nowrap
-    border border-border
-    transition-all
-    duration-300
-    hover:scale-[1.02]
-  "
-            style={{
-              background:
-                "linear-gradient(180deg, hsl(var(--foreground) / 0.95), hsl(var(--foreground) / 0.78))",
-              boxShadow:
-                "inset 0 1px 0 hsl(var(--background) / 0.16), 0 8px 20px hsl(var(--foreground) / 0.18)",
+          {/* Hide these when collapsed */}
+          <motion.div
+            className="flex items-center gap-2 overflow-hidden"
+            animate={{
+              width: scrolled ? 0 : "auto",
+              opacity: scrolled ? 0 : 1,
+            }}
+            transition={{
+              duration: 0.35,
+              ease: [0.22, 1, 0.36, 1],
             }}
           >
-            Book a Call
-          </Link>
+            <button className="flex h-10 w-10 items-center justify-center rounded-full border border-border hover:bg-muted">
+              <Command size={16} />
+            </button>
 
-          {/* Command icon */}
-          <button
-            aria-label="Open command palette"
-            title="Open command palette"
-            className="
-              flex h-8 w-8 items-center justify-center
-              rounded-full
-              border border-border
-              text-foreground
-              hover:bg-muted
-              transition-colors
-            "
-          >
-            <Command size={14} />
-          </button>
+            <a
+              href="mailto:anjalikamal3105@gmail.com"
+              className="whitespace-nowrap rounded-full bg-foreground px-5 py-2 text-sm text-background"
+            >
+              Book a Call
+            </a>
+          </motion.div>
         </div>
       </motion.div>
     </header>

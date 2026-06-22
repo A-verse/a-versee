@@ -2,7 +2,6 @@ import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import { allProjects } from "@/pages/Projects";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 export default function ProjectDetail() {
@@ -38,9 +37,13 @@ export default function ProjectDetail() {
               </Link>
 
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-xs text-accent uppercase tracking-widest">{project.category}</span>
+                <span className="text-xs text-accent uppercase tracking-widest">
+                  {project.category}
+                </span>
                 <span className="text-xs text-muted-foreground">·</span>
-                <span className="text-xs text-muted-foreground">{project.year}</span>
+                <span className="text-xs text-muted-foreground">
+                  {project.year}
+                </span>
               </div>
 
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6">
@@ -82,21 +85,34 @@ export default function ProjectDetail() {
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 mb-20">
               <ScrollReveal>
-                <h3 className="text-xs text-accent uppercase tracking-widest mb-4">The Problem</h3>
-                <p className="text-sm text-secondary-foreground leading-relaxed">{project.problem}</p>
+                <h3 className="text-xs text-accent uppercase tracking-widest mb-4">
+                  The Problem
+                </h3>
+                <p className="text-sm text-secondary-foreground leading-relaxed">
+                  {project.problem}
+                </p>
               </ScrollReveal>
 
               <ScrollReveal delay={0.1}>
-                <h3 className="text-xs text-accent uppercase tracking-widest mb-4">The Approach</h3>
-                <p className="text-sm text-secondary-foreground leading-relaxed">{project.approach}</p>
+                <h3 className="text-xs text-accent uppercase tracking-widest mb-4">
+                  The Approach
+                </h3>
+                <p className="text-sm text-secondary-foreground leading-relaxed">
+                  {project.approach}
+                </p>
               </ScrollReveal>
             </div>
 
             <ScrollReveal>
-              <h3 className="text-xs text-accent uppercase tracking-widest mb-6">Key Contributions</h3>
+              <h3 className="text-xs text-accent uppercase tracking-widest mb-6">
+                Key Contributions
+              </h3>
               <ul className="space-y-3 mb-20">
                 {project.bullets.map((bullet, i) => (
-                  <li key={i} className="flex gap-3 text-sm text-secondary-foreground">
+                  <li
+                    key={i}
+                    className="flex gap-3 text-sm text-secondary-foreground"
+                  >
                     <span className="text-accent mt-0.5 shrink-0">→</span>
                     {bullet}
                   </li>
@@ -105,18 +121,26 @@ export default function ProjectDetail() {
             </ScrollReveal>
 
             <ScrollReveal>
-              <h3 className="text-xs text-accent uppercase tracking-widest mb-6">Tools & Technologies</h3>
+              <h3 className="text-xs text-accent uppercase tracking-widest mb-6">
+                Tools & Technologies
+              </h3>
               <div className="flex flex-wrap gap-2 mb-20">
                 {project.tools.map((tool) => (
-                  <span key={tool} className="tag-pill">{tool}</span>
+                  <span key={tool} className="tag-pill">
+                    {tool}
+                  </span>
                 ))}
               </div>
             </ScrollReveal>
 
             <ScrollReveal>
               <div className="glass-card p-8 md:p-12">
-                <h3 className="text-xs text-accent uppercase tracking-widest mb-4">The Result</h3>
-                <p className="text-base text-secondary-foreground leading-relaxed">{project.result}</p>
+                <h3 className="text-xs text-accent uppercase tracking-widest mb-4">
+                  The Result
+                </h3>
+                <p className="text-base text-secondary-foreground leading-relaxed">
+                  {project.result}
+                </p>
               </div>
             </ScrollReveal>
           </div>

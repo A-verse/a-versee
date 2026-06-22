@@ -1,54 +1,103 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function SignatureCard() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="bg-card border border-border rounded-[24px] p-8 flex flex-col justify-between relative min-h-[340px] bg-[radial-gradient(600px_300px_at_50%_40%,hsl(var(--primary)/0.07),transparent_70%)]"
+      transition={{ duration: 0.5 }}
+      className="
+        bg-card
+        border
+        border-border
+        rounded-[24px]
+        p-6
+        min-h-[380px]
+        flex
+        flex-col
+      "
     >
       {/* Label */}
-      <p className="text-xs tracking-widest text-muted-foreground uppercase">
+      <p className="text-[11px] tracking-[0.25em] uppercase text-muted-foreground">
         Visitors
       </p>
 
-      {/* Headline */}
-      <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground tracking-tight">
-        Leave your
-        <br />
-        <span className="font-display italic bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent text-4xl md:text-5xl">
-          signature
-        </span>
-      </h2>
+      {/* Heading */}
+      <div className="mt-6 leading-[0.95]">
+        <h2
+          className="
+            font-display
+            text-6xl
+            font-medium
+            tracking-[-0.05em]
+          "
+        >
+          Leave your
+        </h2>
 
-      {/* Subtext */}
-      <p className="text-sm text-muted-foreground mt-4">
+        <h2
+          className="
+            font-accent
+            font-bold
+            text-6xl
+            leading-none
+            mt-1
+          "
+        >
+          signature
+        </h2>
+      </div>
+
+      {/* Description */}
+      <p className="mt-6 text-muted-foreground text-base">
         Let me know you were here.
       </p>
 
-      {/* Avatars Row */}
-      <div className="flex items-center gap-2 mt-8">
-        {[1, 2, 3, 4].map((i, idx) => (
-          <img
-            key={i}
-            src={`/avatars/avatar${i}.jpg`}
-            alt={`Visitor ${i}`}
-            className={`w-8 h-8 rounded-full border border-border object-cover ${idx !== 0 ? "-ml-2" : ""}`}
-          />
-        ))}
-      </div>
+      {/* Bottom */}
+      <div className="mt-auto flex items-center justify-between gap-4">
+        {/* Avatars */}
+        <div className="flex items-center">
+          {[1, 2, 3].map((i, idx) => (
+            <img
+              key={i}
+              src={`/avatars/avatar${i}.jpg`}
+              alt=""
+              className={`h-9 w-9 rounded-full border border-border object-cover ${
+                idx !== 0 ? "-ml-2" : ""
+              }`}
+            />
+          ))}
 
-      {/* CTA Button */}
-      <a
-        href="/guestbook"
-        className="mt-6 rounded-full border border-border bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent px-6 py-2 text-sm font-medium flex items-center gap-2 shadow hover:brightness-110 transition-all"
-      >
-        Sign Guestbook
-        <span aria-hidden="true">→</span>
-      </a>
+          <span className="ml-3 text-muted-foreground text-base">
+            Join others
+          </span>
+        </div>
+
+        {/* Button */}
+        <Link
+          to="/signature-book"
+          className="
+    flex
+    items-center
+    gap-3
+    rounded-full
+    border
+    border-border
+    px-5
+    py-3
+    text-sm
+    font-medium
+    hover:bg-muted
+    transition-all
+  "
+        >
+          <span>Sign Guestbook</span>
+          <span>→</span>
+        </Link>
+      </div>
     </motion.div>
   );
 }

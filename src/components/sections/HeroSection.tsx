@@ -41,23 +41,26 @@ export default function HeroSection() {
       {/* Mouse glow */}
       <motion.div
         animate={{
-          x: mousePos.x - 250,
-          y: mousePos.y - 250,
+          x: mousePos.x - 175,
+          y: mousePos.y - 175,
         }}
         transition={{
           type: "spring",
-          stiffness: 100,
-          damping: 30,
+          stiffness: 90,
+          damping: 28,
         }}
         className="
-          absolute
-          h-[500px]
-          w-[500px]
-          rounded-full
-          bg-accent/10
-          blur-[140px]
-          pointer-events-none
-        "
+    absolute
+    h-[350px]
+    w-[350px]
+    rounded-full
+    bg-gradient-to-r
+    from-violet-500/10
+    via-sky-400/8
+    to-transparent
+    blur-[120px]
+    pointer-events-none
+  "
       />
 
       {/* Vignette */}
@@ -66,86 +69,101 @@ export default function HeroSection() {
       {/* Main */}
       <div
         className="
-        relative z-10
-        flex min-h-screen
-        flex-col
-        items-center
-        justify-center
-        text-center
-        px-6
-        pt-24
-        pb-20
-        md:pt-0
-        md:pb-24
-      "
+relative z-10
+flex min-h-screen
+flex-col
+items-center
+justify-center
+text-center
+px-6
+pt-24
+pb-24
+max-w-5xl
+mx-auto
+"
       >
-        {/* Pill Button — with traced glow border */}
-        <Link
-          to="/contact"
-          className="
-    group
-    relative
-    inline-flex
-    items-center
-    rounded-full
-    overflow-hidden
-    p-[1px]
-    mb-6 md:mb-8
-  "
-        >
-          {/* Rotating border beam */}
-          <motion.span
-            animate={{ rotate: 360 }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute inset-[-80%] rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,transparent_285deg,hsl(var(--accent))_315deg,hsl(var(--secondary-foreground))_340deg,transparent_360deg)]"
-          />
+        {/* Pill Button */}
 
-          {/* Glow */}
-          <motion.span
-            animate={{ rotate: 360 }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute inset-[-80%] rounded-full blur-md opacity-80 bg-[conic-gradient(from_0deg,transparent_0deg,transparent_285deg,hsl(var(--accent))_315deg,hsl(var(--secondary-foreground))_340deg,transparent_360deg)]"
-          />
-
-          {/* Button */}
-          <span
+        <div className="mt-10 mb-12 md:mb-16">
+          <button
             className="
       relative
-      z-10
-      flex
-      items-center
-      gap-1.5
+      isolate
+      overflow-hidden
       rounded-full
-      bg-card
-      px-4
-      py-1.5
+      p-[1px]
     "
           >
-            <span className="text-[11px] font-medium tracking-wide text-card-foreground">
-              Say Hi!
-            </span>
+            {/* Rotating Beam */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-[-150%]"
+            >
+              <div
+                className="
+          absolute
+          top-1/2
+          left-1/2
+          h-28
+          w-6
+          -translate-x-1/2
+          -translate-y-1/2
+          rounded-full
+          bg-gradient-to-b
+          from-transparent
+          via-orange-300
+          to-transparent
+          blur-2xl
+        "
+              />
+            </motion.div>
 
-            <FaXTwitter size={10} className="text-muted-foreground" />
-
-            <ChevronRight
-              size={12}
+            {/* Border base */}
+            <div className="absolute inset-0 rounded-full bg-white/10" />
+            {/* Button body */}
+            <div
               className="
-        text-muted-foreground
-        transition-transform
-        duration-300
-        group-hover:translate-x-1
-      "
-            />
-          </span>
-        </Link>
+    relative
+    z-10
+    flex
+    items-center
+    gap-2
+    rounded-full
+    bg-card/90
+    backdrop-blur-xl
+    px-4
+    py-2
+  "
+            >
+              <span className="text-sm font-medium text-muted-foreground">
+                Say hi on
+              </span>
+
+              <span className="text-lg text-foreground">𝕏</span>
+
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="text-muted-foreground"
+              >
+                <path
+                  d="M8 5L16 12L8 19"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
 
         {/* Name */}
         <motion.h1
@@ -159,34 +177,31 @@ export default function HeroSection() {
           text-foreground
           leading-[0.85]
           tracking-[-0.03em]
-          text-[6.5rem]
-          sm:text-[8.5rem]
-          md:text-[11rem]
-          xl:text-[14rem]
+          text-[4.5rem]
+sm:text-[6rem]
+md:text-[8rem]
+xl:text-[10rem]
         "
         >
           ANJALI
         </motion.h1>
-
         {/* Small line */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
           className="
-          mt-10
-          md:mt-12
-          uppercase
-          tracking-[0.4em]
-          text-muted-foreground
-          text-sm
-          md:text-base
-          font-medium
-        "
+  mt-8
+  md:mt-10
+  text-xs
+  md:text-sm
+  tracking-[0.28em]
+  text-muted-foreground
+  font-medium
+"
         >
           I DESIGN AND BUILD SCALABLE SYSTEMS THAT
         </motion.p>
-
         {/* Tagline */}
         <motion.h2
           initial={{ opacity: 0, y: 35 }}
@@ -200,9 +215,9 @@ export default function HeroSection() {
           leading-none
           text-foreground
           tracking-[-0.01em]
-          text-4xl
-          md:text-6xl
-          xl:text-7xl
+          text-2xl
+md:text-4xl
+xl:text-5xl
         "
         >
           solve real-world problems.
@@ -211,16 +226,13 @@ export default function HeroSection() {
 
       {/* Left */}
       <div className="absolute left-6 bottom-6 md:left-14 md:bottom-10">
-        <MapPin
-          size={22}
-          strokeWidth={1.8}
-          className="mb-3 md:mb-4 text-emerald-400"
-        />
+        <MapPin size={16} strokeWidth={1.8} className="mb-2 text-emerald-400" />
 
-        <h3 className="font-sans not-italic text-sm md:text-lg font-bold uppercase text-foreground">
-          Based in Jaipur,
+        <h3 className="font-sans text-xs md:text-sm font-medium uppercase tracking-wide text-foreground">
+          Based in Jaipur
         </h3>
-        <p className="font-sans not-italic mt-0.5 text-sm md:text-lg text-muted-foreground uppercase">
+
+        <p className="mt-1 text-xs md:text-sm text-muted-foreground uppercase tracking-wide">
           India
         </p>
       </div>
@@ -228,15 +240,15 @@ export default function HeroSection() {
       {/* Right */}
       <div className="absolute right-6 bottom-6 md:right-14 md:bottom-10 text-right">
         <Layers
-          size={22}
+          size={16}
           strokeWidth={1.8}
-          className="mb-3 md:mb-4 ml-auto text-sky-400"
+          className="mb-2 ml-auto text-sky-400"
         />
-
-        <h3 className="font-sans not-italic text-sm md:text-lg font-bold uppercase text-foreground">
-          Full Stack Dev,
+        <h3 className="font-sans text-xs md:text-sm font-medium uppercase tracking-wide text-foreground">
+          Full Stack Dev
         </h3>
-        <p className="font-sans not-italic mt-0.5 text-sm md:text-lg text-muted-foreground uppercase">
+
+        <p className="mt-1 text-xs md:text-sm text-muted-foreground uppercase tracking-wide">
           & AI Engineer
         </p>
       </div>
