@@ -18,6 +18,7 @@ interface Signature {
   message: string;
   avatar: string | null;
   created_at: string;
+  pinned: boolean;
 }
 
 interface SupabaseUser {
@@ -394,6 +395,7 @@ export default function SignatureBook() {
     const { data } = await supabase
       .from("guestbook")
       .select("*")
+      .order("pinned", { ascending: false })
       .order("created_at", { ascending: false });
     setSignatures((data as Signature[]) ?? []);
     setLoadingSigs(false);
