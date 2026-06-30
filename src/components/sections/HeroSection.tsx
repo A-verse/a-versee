@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Layers, MapPin } from "lucide-react";
@@ -7,12 +8,26 @@ import { Link } from "react-router-dom";
 import { FaXTwitter } from "react-icons/fa6";
 
 export default function HeroSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+
+    check();
+
+    window.addEventListener("resize", check);
+
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const [mousePos, setMousePos] = useState({
     x: typeof window !== "undefined" ? window.innerWidth / 2 : 0,
     y: typeof window !== "undefined" ? window.innerHeight / 2 : 0,
   });
 
   useEffect(() => {
+    if (isMobile) return;
+
     const handleMove = (e: MouseEvent) => {
       setMousePos({
         x: e.clientX,
@@ -23,7 +38,7 @@ export default function HeroSection() {
     window.addEventListener("mousemove", handleMove);
 
     return () => window.removeEventListener("mousemove", handleMove);
-  }, []);
+  }, [isMobile]);
 
   return (
     <motion.section
@@ -33,35 +48,37 @@ export default function HeroSection() {
         duration: 1,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="relative min-h-screen overflow-hidden bg-background"
+      className="relative min-h-[100svh] md:min-h-screen overflow-hidden bg-background"
     >
       {/* Grain */}
       <div className="grain absolute inset-0 opacity-[0.03]" />
 
       {/* Mouse glow */}
-      <motion.div
-        animate={{
-          x: mousePos.x - 175,
-          y: mousePos.y - 175,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 90,
-          damping: 28,
-        }}
-        className="
-    absolute
-    h-[350px]
-    w-[350px]
-    rounded-full
-    bg-gradient-to-r
-    from-violet-500/10
-    via-sky-400/8
-    to-transparent
-    blur-[120px]
-    pointer-events-none
-  "
-      />
+      {!isMobile && (
+        <motion.div
+          animate={{
+            x: mousePos.x - 175,
+            y: mousePos.y - 175,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 90,
+            damping: 28,
+          }}
+          className="
+      absolute
+      h-[350px]
+      w-[350px]
+      rounded-full
+      bg-gradient-to-r
+      from-violet-500/10
+      via-pink-400/10
+      to-transparent
+      blur-[120px]
+      pointer-events-none
+    "
+        />
+      )}
 
       {/* Vignette */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_40%,hsl(var(--background)_/_0.92)_100%)]" />
@@ -69,15 +86,21 @@ export default function HeroSection() {
       {/* Main */}
       <div
         className="
-relative z-10
-flex min-h-screen
+relative
+z-10
+flex
+min-h-[100svh]
+md:min-h-screen
 flex-col
 items-center
 justify-center
 text-center
-px-6
+px-5
+sm:px-6
 pt-24
-pb-24
+md:pt-28
+pb-16
+md:pb-24
 max-w-5xl
 mx-auto
 "
@@ -177,8 +200,8 @@ mx-auto
           text-foreground
           leading-[0.85]
           tracking-[-0.03em]
-          text-[4.5rem]
-sm:text-[6rem]
+          text-[3.6rem]
+sm:text-[5rem]
 md:text-[8rem]
 xl:text-[10rem]
         "
@@ -191,11 +214,13 @@ xl:text-[10rem]
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
           className="
-  mt-8
-  md:mt-10
-  text-xs
-  md:text-sm
-  tracking-[0.28em]
+  mt-5
+md:mt-10
+px-4
+text-[11px]
+md:text-sm
+leading-relaxed
+tracking-[0.18em]
   text-muted-foreground
   font-medium
 "
@@ -215,7 +240,8 @@ xl:text-[10rem]
           leading-none
           text-foreground
           tracking-[-0.01em]
-          text-2xl
+          text-[2rem]
+sm:text-[2.4rem]
 md:text-4xl
 xl:text-5xl
         "
@@ -224,34 +250,62 @@ xl:text-5xl
         </motion.h2>
       </div>
 
-      {/* Left */}
-      <div className="absolute left-6 bottom-6 md:left-14 md:bottom-10">
+      {/* Desktop */}
+
+      <div className="hidden md:block absolute left-14 bottom-10">
         <MapPin size={16} strokeWidth={1.8} className="mb-2 text-emerald-400" />
 
-        <h3 className="font-sans text-xs md:text-sm font-medium uppercase tracking-wide text-foreground">
+        <h3 className="text-sm font-medium uppercase tracking-wide text-foreground">
           Based in Jaipur
         </h3>
 
-        <p className="mt-1 text-xs md:text-sm text-muted-foreground uppercase tracking-wide">
+        <p className="mt-1 text-sm uppercase tracking-wide text-muted-foreground">
           India
         </p>
       </div>
 
-      {/* Right */}
-      <div className="absolute right-6 bottom-6 md:right-14 md:bottom-10 text-right">
+      <div className="hidden md:block absolute right-14 bottom-10 text-right">
         <Layers
           size={16}
           strokeWidth={1.8}
-          className="mb-2 ml-auto text-sky-400"
+          className="mb-2 ml-auto text-pink-400"
         />
-        <h3 className="font-sans text-xs md:text-sm font-medium uppercase tracking-wide text-foreground">
+
+        <h3 className="text-sm font-medium uppercase tracking-wide text-foreground">
           Full Stack Dev
         </h3>
 
-        <p className="mt-1 text-xs md:text-sm text-muted-foreground uppercase tracking-wide">
+        <p className="mt-1 text-sm uppercase tracking-wide text-muted-foreground">
           & AI Engineer
         </p>
       </div>
+
+      {/* Mobile */}
+
+      <div className="md:hidden mt-12 flex items-center justify-center gap-4 text-xs uppercase tracking-wider text-muted-foreground">
+        <div className="flex items-center gap-1.5">
+          <MapPin size={13} className="text-emerald-400" />
+          Jaipur, India
+        </div>
+
+        <div className="w-1 h-1 rounded-full bg-white/20" />
+
+        <div className="flex items-center gap-1.5">
+          <Layers size={13} className="text-pink-400" />
+          Full Stack Dev & AI Engineer
+        </div>
+      </div>
+
+      <motion.div
+        className="mt-10 md:hidden"
+        animate={{ y: [0, 8, 0] }}
+        transition={{
+          repeat: Infinity,
+          duration: 2,
+        }}
+      >
+        <ChevronDown className="h-5 w-5 text-muted-foreground" />
+      </motion.div>
     </motion.section>
   );
 }
